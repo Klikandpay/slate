@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>API Documentation</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +86,12 @@
   color: #90a959;
 }
     </style>
-      <script src="javascripts/all.js"></script>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -101,246 +101,338 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
       <div id="toc">
       </div>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
+        <h1 id="introduction-to-server-to-server-mode">Introduction to server-to-server mode</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<aside class="warning">
+Please note that server-to-server mode is subject to Compliance approval and has to be requested and granted for access.<br>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-
-<h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+The use of the server-to-server implies that the credit card data passes through your server, therefore we request the merchant to be PCI / DSS Level 3 (or higher) certified<br>
+Your PCI-DSS certificate has to be renewed annually and updated document sent back to us. Should the merchant not comply with this requirement payment processing will be disabled and a penalty issued.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<p>Please note that only &ldquo;Direct&rdquo; and &ldquo;Deferred&rdquo; are available through server-to-server mode (subscription and several instalments are not supported)
+In order to be able to manage subscriptions and several instalments options, please refer to the &ldquo;alias&rdquo; section explained above. </p>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<aside class="notice">
+We strongly advise the merchant account holder to create a user account for the web master that will take care of the Klik & Pay the integration set-up and to limit the access rights. You will be able to 
+delete this user account at any time you wish. 
+</aside>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<h1 id="integration-set-up">Integration set-up</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h2 id="merchant-id-and-alias">Merchant ID and Alias</h2>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p><img src="images/DOC_EN_acct.png" />
+<img src="images/DOC_EN_id.png" /></p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
+<p>You will find your Merchant ID in your Klik &amp; Pay Back Office under &ldquo;Account Administration&rdquo; sub folder &ldquo;Account Information&rdquo;.</p>
 
-<h3 id="http-request">HTTP Request</h3>
+<aside class="notice">
+^Merchant ID is unique. <br>
+In the case of a multi-currency set-up, each currency will be issued with a unique Merchant ID.You will have to redirect the customer on the specific Merchant ID linked to the invoiced currency.
+</aside>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<p>The alias is an imprint of your customers&rsquo; cards, it is returned after a successful transaction has been processed. You can represent a valid card without requiring the customer to fill in his credit card details again. The alias lets you automate the payment and enable you to set-up a subscription billing system.</p>
 
-<h3 id="query-parameters">Query Parameters</h3>
+<h2 id="url-and-private-key">URL and Private Key</h2>
+
+<blockquote>
+<p><img src="images/DOC_EN_setup.png" />
+<img src="images/DOC_EN_key.png" /> </p>
+</blockquote>
+
+<aside class="warning">
+Data must be sent in POST to the following URL
+</aside>
+
+<p><code class="prettyprint">https://www.klikandpay.com/paiement/server_server.pl</code></p>
+
+<p>When the server-to-server mode is enabled, your own private key account is generated in your Klik &amp; Pay Back Office. Your private key is required to cancel a transaction (full or partial), to confirm and modify a deferred transaction and create a duplicate.</p>
+
+<aside class="notice">
+Key can be found under &ldquo;Account Settings&rdquo; then &ldquo;Settings&rdquo; sub-menu.
+</aside>
+
+<h2 id="test-cards">Test cards</h2>
+
+<p>When in server-to-server only direct payment can be ran in test mode.</p>
+
+<p>Advanced features (cancellation, duplicate, deferred) require the use of a real credit card in order to recover the alias. Transactions will be debited for real.</p>
+
+<p>The following cards are only functional in test mode</p>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>Credit card</th>
+<th>Number</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>Visa</td>
+<td>4012888888881881</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>Mastercard</td>
+<td>5555555555554444</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<p>The expected CVV is 111, enter any date in the future for expiry date.</p>
+
+<h1 id="example-and-variables">Example and variables</h1>
+
+<h2 id="direct-payment-and-examples">Direct payment and examples</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$url</span> <span class="o">=</span> <span class="s2">"https://www.klikandpay.com/paiement/server_server.pl"</span><span class="p">;</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'ID'</span>         <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span>
+    <span class="s1">'IP'</span>         <span class="o">=&gt;</span> <span class="nv">$ip</span><span class="p">,</span>
+    <span class="s1">'NOM'</span>        <span class="o">=&gt;</span> <span class="nv">$surname</span><span class="p">,</span>
+    <span class="s1">'PRENOM'</span>     <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+    <span class="s1">'ADRESSE'</span>    <span class="o">=&gt;</span> <span class="nv">$address</span><span class="p">,</span>
+    <span class="s1">'CODEPOSTAL'</span> <span class="o">=&gt;</span> <span class="nv">$postcode</span>
+    <span class="s1">'VILLE'</span>      <span class="o">=&gt;</span> <span class="nv">$vcity</span><span class="p">,</span>
+    <span class="s1">'PAYS'</span>       <span class="o">=&gt;</span> <span class="nv">$country</span><span class="p">,</span>
+    <span class="s1">'TEL'</span>        <span class="o">=&gt;</span> <span class="nv">$tel</span><span class="p">,</span>
+    <span class="s1">'EMAIL'</span>      <span class="o">=&gt;</span> <span class="nv">$email</span><span class="p">,</span>
+    <span class="s1">'MONTANT'</span>    <span class="o">=&gt;</span> <span class="nv">$amount</span><span class="p">,</span>
+    <span class="s1">'NUMCARTE'</span>   <span class="o">=&gt;</span> <span class="nv">$cardnumber</span><span class="p">,</span>
+    <span class="s1">'EXPMOIS'</span>    <span class="o">=&gt;</span> <span class="nv">$expirymonth</span><span class="p">,</span>
+    <span class="s1">'EXPANNEE'</span>   <span class="o">=&gt;</span> <span class="nv">$expiryyear</span><span class="p">,</span>
+    <span class="s1">'CVV'</span>        <span class="o">=&gt;</span> <span class="nv">$cvv</span><span class="p">,</span>
+<span class="p">);</span>
+
+            <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>            
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+            <span class="nv">$result_curl</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$result_curl</span><span class="p">){</span>
+                <span class="k">echo</span> <span class="s1">'Curl error: '</span> <span class="o">.</span> <span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br /&gt;"</span><span class="p">;</span>
+                <span class="k">die</span><span class="p">();</span>
+            <span class="p">}</span>
+
+        <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nb">print_r</span><span class="p">(</span><span class="nv">$result_curl</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre>
+
+<aside class="warning">
+It is mandatory to send the data in POST format to the following URL
 </aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Mandatory variables</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>Real customer IP address</td>
+</tr>
+<tr>
+<td>NOM</td>
+<td>Customer surname</td>
+</tr>
+<tr>
+<td>PRENOM</td>
+<td>Customer name</td>
+</tr>
+<tr>
+<td>ADRESSE</td>
+<td>Customer address</td>
+</tr>
+<tr>
+<td>CODEPOSTAL</td>
+<td>Customer postcode</td>
+</tr>
+<tr>
+<td>VILLE</td>
+<td>Customer city</td>
+</tr>
+<tr>
+<td>PAYS</td>
+<td>ISO format 3166 (EN, FR, DE)</td>
+</tr>
+<tr>
+<td>EMAIL</td>
+<td>End client email address</td>
+</tr>
+<tr>
+<td>TEL</td>
+<td>Customer telephone</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Transaction amount</td>
+</tr>
+<tr>
+<td>NUMCARTE</td>
+<td>End client credit card number</td>
+</tr>
+<tr>
+<td>EXPMOIS</td>
+<td>End client credit card expiry month (expecting 2 digits, i.e: 02 or 11)</td>
+</tr>
+<tr>
+<td>EXPANNEE</td>
+<td>End client credit card expiry year (expecting 4 digits, i.e: 2020)</td>
+</tr>
+<tr>
+<td>CVV</td>
+<td>End client credit card CVV</td>
 </tr>
 </tbody></table>
 
-          <h1 id="errors">Errors</h1>
-
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Optional Variables</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>STATE</td>
+<td>Credit card holder state</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>SOCIETE</td>
+<td>End client company</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>DETAIL</td>
+<td>Basket function- described below</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>FAX</td>
+<td>End client fax number</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>DIFFERE</td>
+<td>If = 1 then the transaction will be deferred, you will then have to cancel or validate it depending on your account settings.</td>
+</tr>
+</tbody></table>
+
+<h2 id="cancellation-script-full-or-partial">Cancellation script (full or partial)</h2>
+
+<p>This script enables you to cancel or partially refund a processed transaction. As well as to cancel a pending deferred transaction awaiting for validation.</p>
+
+<p><code class="prettyprint">Script URL: https://www.klikandpay.com/paiement/cancel_transaction.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td>TX</td>
+<td>Transaction number recovered from the acceptance of the transaction</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td>MONTANT</td>
+<td>Amount should be less than or equal to the transaction amount</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled)</td>
+</tr>
+</tbody></table>
+
+<h2 id="deferred-transaction-validation-script">Deferred transaction validation script:</h2>
+
+<p>This script enables you to validate the desired amount on a deferred transaction.</p>
+
+<p><code class="prettyprint">Script URL: https://www.klikandpay.com/paiement/validedifferee.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>TX</td>
+<td>Transaction number recovered from the acceptance of the transaction</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td>MONTANT</td>
+<td>Amount should be less than or equal to the transaction amount</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled))</td>
+</tr>
+</tbody></table>
+
+<h2 id="duplicate-transaction-script">Duplicate transaction script:</h2>
+
+<p>This script will allow you to duplicate a transaction to enable you to re-bill the same card through the alias, this solution allows you for example the management of subscriptions.</p>
+
+<p><code class="prettyprint">Script URL : https://www.klikandpay.com/paiement/duplicate.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>Real customer IP address used for the first transaction</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Transaction amount</td>
+</tr>
+<tr>
+<td>ALIAS</td>
+<td>Alias recovered during the first transaction</td>
+</tr>
+<tr>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled)</td>
+</tr>
+<tr>
+<td>DIFFERE</td>
+<td>If = 1 then the transaction will be deferred, you will then have to cancel or validate it depending on your account settings.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
