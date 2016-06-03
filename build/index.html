@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch.js"></script>
+  </head>
+
+  <body class="index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+        </div>
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction-to-server-to-server-mode">Introduction to server-to-server mode</h1>
+
+<aside class="warning">
+Please note that server-to-server mode is subject to Compliance approval and has to be requested and granted for access.<br>
+
+The use of the server-to-server implies that the credit card data passes through your server, therefore we request the merchant to be PCI / DSS Level 3 (or higher) certified<br>
+Your PCI-DSS certificate has to be renewed annually and updated document sent back to us. Should the merchant not comply with this requirement payment processing will be disabled and a penalty issued.
+</aside>
+
+<p>Please note that only &ldquo;Direct&rdquo; and &ldquo;Deferred&rdquo; are available through server-to-server mode (subscription and several instalments are not supported)
+In order to be able to manage subscriptions and several instalments options, please refer to the &ldquo;alias&rdquo; section explained above. </p>
+
+<aside class="notice">
+We strongly advise the merchant account holder to create a user account for the web master that will take care of the Klik & Pay the integration set-up and to limit the access rights. You will be able to 
+delete this user account at any time you wish. 
+</aside>
+
+<h1 id="integration-set-up">Integration set-up</h1>
+
+<h2 id="merchant-id-and-alias">Merchant ID and Alias</h2>
+
+<blockquote>
+<p><img src="images/DOC_EN_acct.png" />
+<img src="images/DOC_EN_id.png" /></p>
+</blockquote>
+
+<p>You will find your Merchant ID in your Klik &amp; Pay Back Office under &ldquo;Account Administration&rdquo; sub folder &ldquo;Account Information&rdquo;.</p>
+
+<aside class="notice">
+^Merchant ID is unique. <br>
+In the case of a multi-currency set-up, each currency will be issued with a unique Merchant ID.You will have to redirect the customer on the specific Merchant ID linked to the invoiced currency.
+</aside>
+
+<p>The alias is an imprint of your customers&rsquo; cards, it is returned after a successful transaction has been processed. You can represent a valid card without requiring the customer to fill in his credit card details again. The alias lets you automate the payment and enable you to set-up a subscription billing system.</p>
+
+<h2 id="url-and-private-key">URL and Private Key</h2>
+
+<blockquote>
+<p><img src="images/DOC_EN_setup.png" />
+<img src="images/DOC_EN_key.png" /> </p>
+</blockquote>
+
+<aside class="warning">
+Data must be sent in POST to the following URL
+</aside>
+
+<p><code class="prettyprint">https://www.klikandpay.com/paiement/server_server.pl</code></p>
+
+<p>When the server-to-server mode is enabled, your own private key account is generated in your Klik &amp; Pay Back Office. Your private key is required to cancel a transaction (full or partial), to confirm and modify a deferred transaction and create a duplicate.</p>
+
+<aside class="notice">
+Key can be found under &ldquo;Account Settings&rdquo; then &ldquo;Settings&rdquo; sub-menu.
+</aside>
+
+<h2 id="test-cards">Test cards</h2>
+
+<p>When in server-to-server only direct payment can be ran in test mode.</p>
+
+<p>Advanced features (cancellation, duplicate, deferred) require the use of a real credit card in order to recover the alias. Transactions will be debited for real.</p>
+
+<p>The following cards are only functional in test mode</p>
+
+<table><thead>
+<tr>
+<th>Credit card</th>
+<th>Number</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Visa</td>
+<td>4012888888881881</td>
+</tr>
+<tr>
+<td>Mastercard</td>
+<td>5555555555554444</td>
+</tr>
+</tbody></table>
+
+<p>The expected CVV is 111, enter any date in the future for expiry date.</p>
+
+<h1 id="example-and-variables">Example and variables</h1>
+
+<h2 id="direct-payment-and-examples">Direct payment and examples</h2>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$url</span> <span class="o">=</span> <span class="s2">"https://www.klikandpay.com/paiement/server_server.pl"</span><span class="p">;</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'ID'</span>         <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span>
+    <span class="s1">'IP'</span>         <span class="o">=&gt;</span> <span class="nv">$ip</span><span class="p">,</span>
+    <span class="s1">'NOM'</span>        <span class="o">=&gt;</span> <span class="nv">$surname</span><span class="p">,</span>
+    <span class="s1">'PRENOM'</span>     <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+    <span class="s1">'ADRESSE'</span>    <span class="o">=&gt;</span> <span class="nv">$address</span><span class="p">,</span>
+    <span class="s1">'CODEPOSTAL'</span> <span class="o">=&gt;</span> <span class="nv">$postcode</span>
+    <span class="s1">'VILLE'</span>      <span class="o">=&gt;</span> <span class="nv">$vcity</span><span class="p">,</span>
+    <span class="s1">'PAYS'</span>       <span class="o">=&gt;</span> <span class="nv">$country</span><span class="p">,</span>
+    <span class="s1">'TEL'</span>        <span class="o">=&gt;</span> <span class="nv">$tel</span><span class="p">,</span>
+    <span class="s1">'EMAIL'</span>      <span class="o">=&gt;</span> <span class="nv">$email</span><span class="p">,</span>
+    <span class="s1">'MONTANT'</span>    <span class="o">=&gt;</span> <span class="nv">$amount</span><span class="p">,</span>
+    <span class="s1">'NUMCARTE'</span>   <span class="o">=&gt;</span> <span class="nv">$cardnumber</span><span class="p">,</span>
+    <span class="s1">'EXPMOIS'</span>    <span class="o">=&gt;</span> <span class="nv">$expirymonth</span><span class="p">,</span>
+    <span class="s1">'EXPANNEE'</span>   <span class="o">=&gt;</span> <span class="nv">$expiryyear</span><span class="p">,</span>
+    <span class="s1">'CVV'</span>        <span class="o">=&gt;</span> <span class="nv">$cvv</span><span class="p">,</span>
+<span class="p">);</span>
+
+            <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>            
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+
+            <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+            <span class="nv">$result_curl</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$result_curl</span><span class="p">){</span>
+                <span class="k">echo</span> <span class="s1">'Curl error: '</span> <span class="o">.</span> <span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br /&gt;"</span><span class="p">;</span>
+                <span class="k">die</span><span class="p">();</span>
+            <span class="p">}</span>
+
+        <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nb">print_r</span><span class="p">(</span><span class="nv">$result_curl</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre>
+
+<aside class="warning">
+It is mandatory to send the data in POST format to the following URL
+</aside>
+
+<table><thead>
+<tr>
+<th>Mandatory variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>Real customer IP address</td>
+</tr>
+<tr>
+<td>NOM</td>
+<td>Customer surname</td>
+</tr>
+<tr>
+<td>PRENOM</td>
+<td>Customer name</td>
+</tr>
+<tr>
+<td>ADRESSE</td>
+<td>Customer address</td>
+</tr>
+<tr>
+<td>CODEPOSTAL</td>
+<td>Customer postcode</td>
+</tr>
+<tr>
+<td>VILLE</td>
+<td>Customer city</td>
+</tr>
+<tr>
+<td>PAYS</td>
+<td>ISO format 3166 (EN, FR, DE)</td>
+</tr>
+<tr>
+<td>EMAIL</td>
+<td>End client email address</td>
+</tr>
+<tr>
+<td>TEL</td>
+<td>Customer telephone</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Transaction amount</td>
+</tr>
+<tr>
+<td>NUMCARTE</td>
+<td>End client credit card number</td>
+</tr>
+<tr>
+<td>EXPMOIS</td>
+<td>End client credit card expiry month (expecting 2 digits, i.e: 02 or 11)</td>
+</tr>
+<tr>
+<td>EXPANNEE</td>
+<td>End client credit card expiry year (expecting 4 digits, i.e: 2020)</td>
+</tr>
+<tr>
+<td>CVV</td>
+<td>End client credit card CVV</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Optional Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>STATE</td>
+<td>Credit card holder state</td>
+</tr>
+<tr>
+<td>SOCIETE</td>
+<td>End client company</td>
+</tr>
+<tr>
+<td>DETAIL</td>
+<td>Basket function- described below</td>
+</tr>
+<tr>
+<td>FAX</td>
+<td>End client fax number</td>
+</tr>
+<tr>
+<td>DIFFERE</td>
+<td>If = 1 then the transaction will be deferred, you will then have to cancel or validate it depending on your account settings.</td>
+</tr>
+</tbody></table>
+
+<h2 id="cancellation-script-full-or-partial">Cancellation script (full or partial)</h2>
+
+<p>This script enables you to cancel or partially refund a processed transaction. As well as to cancel a pending deferred transaction awaiting for validation.</p>
+
+<p><code class="prettyprint">Script URL: https://www.klikandpay.com/paiement/cancel_transaction.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>Transaction number recovered from the acceptance of the transaction</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Amount should be less than or equal to the transaction amount</td>
+</tr>
+<tr>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled)</td>
+</tr>
+</tbody></table>
+
+<h2 id="deferred-transaction-validation-script">Deferred transaction validation script:</h2>
+
+<p>This script enables you to validate the desired amount on a deferred transaction.</p>
+
+<p><code class="prettyprint">Script URL: https://www.klikandpay.com/paiement/validedifferee.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>Transaction number recovered from the acceptance of the transaction</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Amount should be less than or equal to the transaction amount</td>
+</tr>
+<tr>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled))</td>
+</tr>
+</tbody></table>
+
+<h2 id="duplicate-transaction-script">Duplicate transaction script:</h2>
+
+<p>This script will allow you to duplicate a transaction to enable you to re-bill the same card through the alias, this solution allows you for example the management of subscriptions.</p>
+
+<p><code class="prettyprint">Script URL : https://www.klikandpay.com/paiement/duplicate.pl</code></p>
+
+<table><thead>
+<tr>
+<th>Mandatory Variables</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>Real customer IP address used for the first transaction</td>
+</tr>
+<tr>
+<td>MONTANT</td>
+<td>Transaction amount</td>
+</tr>
+<tr>
+<td>ALIAS</td>
+<td>Alias recovered during the first transaction</td>
+</tr>
+<tr>
+<td>PRIVATE_KEY</td>
+<td>Private key to be recovered in the merchant&rsquo;s BO under the set-up section (only available with the server-to-server option enabled)</td>
+</tr>
+<tr>
+<td>DIFFERE</td>
+<td>If = 1 then the transaction will be deferred, you will then have to cancel or validate it depending on your account settings.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
